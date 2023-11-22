@@ -5,34 +5,23 @@
     License GPL v3
 */
 
-//import Clutter from 'gi://Clutter';
 
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 
-//const PANEL_ANIMATION_DURATION = 150;
-
 export default class PanelFreeExtension {
     _showPanel() {
-        Main.panel.height = this._originalPanelHeight;
-        /*Main.panel.ease({
-            duration: PANEL_ANIMATION_DURATION,
-            height: this._originalPanelHeight,
-            mode: Clutter.AnimationMode.EASE_OUT_QUAD
-        });*/
+        Main.panel.statusArea['activities'].first_child.show();
+        Main.panel.set_height(this._originalPanelHeight);
     }
 
     _hidePanel() {
-        Main.panel.height = 0;
-        /*Main.panel.ease({
-            duration: PANEL_ANIMATION_DURATION,
-            height: 0,
-            mode: Clutter.AnimationMode.EASE_OUT_QUAD
-        });*/
+        Main.panel.set_height(0);
+        Main.panel.statusArea['activities'].first_child.hide();
     }
 
     enable() {
-        this._originalPanelHeight = Main.panel.height;
+        this._originalPanelHeight = Main.panel.get_height();
         this._hidePanel();
 
         Main.overview.connectObject('showing', this._showPanel.bind(this), this);
