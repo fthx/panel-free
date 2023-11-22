@@ -14,6 +14,7 @@ const PANEL_ANIMATION_DURATION = 150;
 
 export default class PanelFreeExtension {
     _showPanel() {
+        Main.panel.show();
         Main.panel.ease({
             duration: PANEL_ANIMATION_DURATION,
             height: this._originalPanelHeight,
@@ -25,7 +26,8 @@ export default class PanelFreeExtension {
         Main.panel.ease({
             duration: PANEL_ANIMATION_DURATION,
             height: 0,
-            mode: Clutter.AnimationMode.EASE_OUT_QUAD
+            mode: Clutter.AnimationMode.EASE_OUT_QUAD,
+            onComplete: () => Main.panel.hide()
         });
     }
 
