@@ -11,13 +11,17 @@ import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 export default class PanelFreeExtension {
     _showPanel() {
-        Main.panel.statusArea['activities'].first_child.show();
+        for (const item in Main.panel.statusArea) {
+            Main.panel.statusArea[item].first_child.show();
+        }
         Main.panel.set_height(this._originalPanelHeight);
     }
 
     _hidePanel() {
         Main.panel.set_height(0);
-        Main.panel.statusArea['activities'].first_child.hide();
+        for (const item in Main.panel.statusArea) {
+            Main.panel.statusArea[item].first_child.hide();
+        }
     }
 
     enable() {
