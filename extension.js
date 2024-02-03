@@ -1,7 +1,7 @@
 /*
     Panel Free
     GNOME Shell 45+ extension
-    Copyright @fthx 2023
+    Copyright @fthx 2024
     License GPL v3
 */
 
@@ -11,21 +11,14 @@ import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 export default class PanelFreeExtension {
     _showPanel() {
-        for (const item in Main.panel.statusArea) {
-            Main.panel.statusArea[item].first_child.show();
-        }
-        Main.panel.set_height(this._originalPanelHeight);
+        Main.panel.visible = true;
     }
 
     _hidePanel() {
-        Main.panel.set_height(0);
-        for (const item in Main.panel.statusArea) {
-            Main.panel.statusArea[item].first_child.hide();
-        }
+        Main.panel.visible = false;
     }
 
     enable() {
-        this._originalPanelHeight = Main.panel.get_height();
         this._hidePanel();
 
         Main.overview.connectObject('showing', this._showPanel.bind(this), this);
