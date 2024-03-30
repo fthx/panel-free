@@ -3,7 +3,7 @@
   "description": "Hide top panel. Panel appears only in overview.",
   "name": "Panel Free",
   "shell-version": [
-    "45"
+    "46"
   ],
   "url": "https://github.com/fthx/panel-free",
   "uuid": "panel-free@fthx",
