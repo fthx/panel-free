@@ -1,29 +1,27 @@
 /*
-    Panel Free - GNOME Shell 46+ extension
-    Copyright @fthx 2025 - License GPL v3
+    Panel Free - GNOME Shell 50+ extension
+    Copyright @fthx 2026 - License GPL v3
 */
-
 
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
-
 export default class PanelFreeExtension {
     _showPanel() {
-        if (Main.layoutManager.overviewGroup.get_children().includes(Main.layoutManager.panelBox))
+        if (Main.layoutManager.panelBox.get_parent() === Main.layoutManager.overviewGroup)
             Main.layoutManager.overviewGroup.remove_child(Main.layoutManager.panelBox);
-        if (Main.layoutManager.panelBox.get_parent() != Main.layoutManager.uiGroup)
-            Main.layoutManager.addChrome(Main.layoutManager.panelBox, { affectsStruts: true, trackFullscreen: false });
+        if (Main.layoutManager.panelBox.get_parent() !== Main.layoutManager.uiGroup)
+            Main.layoutManager.addChrome(Main.layoutManager.panelBox, { affectsStruts: true, trackFullscreen: true });
 
-        Main.overview.searchEntry.get_parent().set_style('margin-top: 0px;');
+        Main.overview.searchEntry.get_parent().remove_style_class_name('panel-free-search-entry');
     }
 
     _hidePanel() {
-        if (Main.layoutManager.panelBox.get_parent() == Main.layoutManager.uiGroup)
+        if (Main.layoutManager.panelBox.get_parent() === Main.layoutManager.uiGroup)
             Main.layoutManager.removeChrome(Main.layoutManager.panelBox);
-        if (!Main.layoutManager.overviewGroup.get_children().includes(Main.layoutManager.panelBox))
+        if (Main.layoutManager.panelBox.get_parent() !== Main.layoutManager.overviewGroup)
             Main.layoutManager.overviewGroup.insert_child_at_index(Main.layoutManager.panelBox, 0);
 
-        Main.overview.searchEntry.get_parent().set_style('margin-top: 32px;');
+        Main.overview.searchEntry.get_parent().add_style_class_name('panel-free-search-entry');
     }
 
     enable() {
